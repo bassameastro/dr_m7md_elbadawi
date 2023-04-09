@@ -36,13 +36,11 @@ markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
 
 def facts_to_str(user_data: Dict[str, str]) -> str:
-    """Helper function for formatting the gathered user info."""
     facts = [f"{key} - {value}" for key, value in user_data.items()]
     return "\n".join(facts).join(["\n", "\n"])
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Start the conversation and ask user for input."""
     await update.message.reply_text(
         "Hi i am your bot for stee ops 🤥saving your card info."
         "Why don't you tell me something about yourself?🤔",
@@ -53,7 +51,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 
 async def regular_choice(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Ask the user for info about the selected predefined choice."""
+
     text = update.message.text
     context.user_data["choice"] = text
     await update.message.reply_text(f"I would love to know your {text.lower()}😈:")
@@ -62,7 +60,7 @@ async def regular_choice(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
 
 async def received_information(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Store info provided by user and ask for the next category."""
+ 
     user_data = context.user_data
     text = update.message.text
     category = user_data["choice"]
@@ -80,7 +78,7 @@ async def received_information(update: Update, context: ContextTypes.DEFAULT_TYP
 
 
 async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    """Display the gathered info and end the conversation."""
+   
     user_data = context.user_data
     if "choice" in user_data:
         del user_data["choice"]
@@ -95,11 +93,9 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 
 def main() -> None:
-    """Run the bot."""
-    # Create the Application and pass it your bot's token.
+   
     application = Application.builder().token("add your token here").build()
 
-    # Add conversation handler with the states CHOOSING, TYPING_CHOICE and TYPING_REPLY
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],
         states={
@@ -125,8 +121,6 @@ def main() -> None:
     )
 
     application.add_handler(conv_handler)
-
-    # Run the bot until the user presses Ctrl-C
     application.run_polling()
 
 
