@@ -94,7 +94,7 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 def main() -> None:
    
-    application = Application.builder().token("add your token here").build()
+    application = Application.builder().token("6052620034:AAFeFOZHgx9dqcacOq8WKPUHiAeqHMio2zo").build()
 
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],
